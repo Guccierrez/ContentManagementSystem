@@ -109,16 +109,16 @@ async function main() {
 
 
 
-
-
         async function addDepartment(){
             let userInput = await inquirer.prompt([{
-                //Remember to add a welcome message
                 type: 'input',
                 name: 'addDepartment',
                 message: "What department would you like to add",
             }])
-            console.log(userInput.addDepartment)
+            // let deptSQL = insert into department (name) values("marketing");SELECT * FROM department;
+            let deptSQL = await connection.execute(`insert into department (name) values(?);`, [userInput.addDepartment])
+            viewAllDepartments()
+            console.log(deptSQL)
         }
 
 
@@ -141,8 +141,9 @@ async function main() {
                 message: "what is the employees department ID",
             },
         ])
-            console.log(userInput.roleJob + userInput.roleSalary)
-
+            console.log(userInput.roleJob + userInput.roleSalary + userInput.departmentID)
+            //insert INTO roles ______
+            //value ____
         }
 
 

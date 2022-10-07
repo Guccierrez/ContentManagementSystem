@@ -99,15 +99,16 @@ async function main() {
         }
 
         async function viewAllRoles(){
-            const [rows] = await connection.execute(`SELECT role.id, role.title, department.name AS department
+            const [rows] = await connection.execute(`SELECT role.id, 
+            role.title, 
+            role.salary, 
+            department.name 
+            AS department
             FROM role
             INNER JOIN department ON role.department_id = department.id;`)
             console.table(rows)
             main()
         }
-
-
-
 
         async function viewAllEmployees(){
             // const [rows] = await connection.execute(`SELECT * FROM employees;`)
@@ -118,7 +119,7 @@ async function main() {
             department.name AS department,
             role.salary, 
             CONCAT (manager.first_name, " ", manager.last_name) AS manager
-     FROM employees
+            FROM employees
             LEFT JOIN role ON employees.role_id = role.id
             LEFT JOIN department ON role.department_id = department.id
             LEFT JOIN employees manager ON employees.manager_id = manager.id;`)
@@ -126,8 +127,6 @@ async function main() {
             console.table(rows)
             main()
         }
-
-
 
         async function addDepartment(){
             let userInput = await inquirer.prompt([{
@@ -137,12 +136,11 @@ async function main() {
             }])
             // let deptSQL = insert into department (name) values("marketing");SELECT * FROM department;
             let deptSQL = await connection.execute(`insert into department (name) values(?);`, [userInput.addDepartment])
-            viewAllDepartments()
+            let [viewDept] = await connection.execute(`select * from department`)
             console.log(deptSQL)
+            console.table(viewDept)
             main()
         }
-
-
 
 
         async function addRole(){
@@ -164,11 +162,11 @@ async function main() {
             },
         ])
          let roleSQL = await connection.execute(`insert into role (title, salary, department_id) values(?, ?, ?);`, [userInput.roleJob, userInput.roleSalary, userInput.departmentID])
-             viewAllRoles()
+         let [viewAllRoles] = await connection.execute(`select * from role`)
             console.log(roleSQL)
+            console.table(viewAllRoles)
             main()
         }
-
 
         async function addEmployee(){
             let userInput = await inquirer.prompt([{
@@ -184,28 +182,26 @@ async function main() {
             {
                 type: 'input',
                 name: 'employeeRoleId',
-                message: "what is the employees role ID",
+                message: "what is the employees role ID?",
             },
             {
                 type: 'input',
                 name: 'managerID',
                 message: "what is the managers ID",
-            }
+            },
 
         ])
         let employeeSQL = await connection.execute(`insert into employees (first_name, last_name, role_id, manager_id) values(?, ?, ?, ?);`, [userInput.employeeFirstName, userInput.employeeLastName, userInput.employeeRoleId, userInput.managerID])
-        viewAllEmployees()
-       console.log(employeeSQL)
+        let [viewAllEmployees] = await connection.execute(`select * from employees`)
+        console.log(employeeSQL)
+        console.table(viewAllEmployees)
        main()
         }
 
-
-
-        
         async function updateRole(){
             const [employees] = await connection.execute(`SELECT first_name as name, id as value FROM employees;`)
             const [role] = await connection.execute(`SELECT id as value, title as name FROM role;`)
-            console.log( role, employees )
+            // console.log( role, employees )
             
                 let userInput = await inquirer.prompt([{
                     type: 'list',
@@ -221,13 +217,25 @@ async function main() {
                 }
             ])
             const [updatedRole] = await connection.execute(`UPDATE employees SET role_id = ? WHERE id = ?;`,[userInput.updateRole, userInput.updateEmployee])
+            let [viewAllEmployees] = await connection.execute(`SELECT employees.id, 
+            employees.first_name, 
+            employees.last_name, 
+            role.title, 
+            department.name AS department,
+            role.salary, 
+            CONCAT (manager.first_name, " ", manager.last_name) AS manager
+            FROM employees
+            LEFT JOIN role ON employees.role_id = role.id
+            LEFT JOIN department ON role.department_id = department.id
+            LEFT JOIN employees manager ON employees.manager_id = manager.id;`)
             console.log(updatedRole)
+            console.table(viewAllEmployees)
             main()
         }
 
 
         async function endingMessage(){
-            console.table("Thank you have a great day")
+            console.log("Thank you have a great day")
         }
 
     

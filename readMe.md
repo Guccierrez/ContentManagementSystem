@@ -3,8 +3,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="videoLink">
-    <img src= "picture of video" alt="Logo" width="160" height="120">
+  <a href="https://drive.google.com/file/d/1p1ilhHOv29TaUnkOrFqEDgBxJBBVhthr/view">
+    <img src= "./TeamManager.png" alt="Logo" width="220" height="180">
   </a>
 
   <h1 align="center">Fortune 500 Employee Tracker</h1>
@@ -80,7 +80,7 @@ Fabian Gutierrez - [fabiangutierrez580@gmail.com]
 (LinkedIn) - [www.linkedin.com/in/fabian-gutierrez-016523248]
 
 
-Project Link: []
+Project Link: [https://drive.google.com/file/d/1p1ilhHOv29TaUnkOrFqEDgBxJBBVhthr/view]
 
 
 

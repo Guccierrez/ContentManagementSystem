@@ -16,7 +16,7 @@
 // WHEN I choose to update an employee role
 // THEN I am prompted to select an employee to update and their new role and this information is updated in the database
 
-
+//dependencies
 const mysql = require('mysql2/promise');
 let inquirer = require("inquirer")
 
@@ -25,13 +25,13 @@ let connection
 initialize()
 main();
 
-
+//connects VS code to MySql
 async function initialize() {
     connection = await mysql.createConnection({ host: 'localhost', user: 'root', database: 'Gucci_db', password: "rootroot" })
 
 }
 
-
+//this prompt initiates all 8 options there are to choose from
 async function main() {
     // get the client
     // create the connection
@@ -52,6 +52,8 @@ async function main() {
 
         // console.log(responseObject)
 
+        //these 8 if statesments direct the user to the code that actually does what they want
+        // for example the first initializes line 96 and displays the department table
         if (responseObject.starterQuestion === "view all departments"){
             viewAllDepartments()
             console.log("hello1")
@@ -142,7 +144,7 @@ async function main() {
             main()
         }
 
-
+            //This prompt allows users to input information for the new role
         async function addRole(){
             let userInput = await inquirer.prompt([{
                 type: 'input',
@@ -168,6 +170,7 @@ async function main() {
             main()
         }
 
+        //this block of code does the same as the previous one but for employees
         async function addEmployee(){
             let userInput = await inquirer.prompt([{
                 type: 'input',
@@ -197,7 +200,7 @@ async function main() {
         console.table(viewAllEmployees)
        main()
         }
-
+        // this block of code allows user to change information that's already in the database
         async function updateRole(){
             const [employees] = await connection.execute(`SELECT first_name as name, id as value FROM employees;`)
             const [role] = await connection.execute(`SELECT id as value, title as name FROM role;`)
@@ -233,7 +236,7 @@ async function main() {
             main()
         }
 
-
+        //this funcion ends the application
         async function endingMessage(){
             console.log("Thank you have a great day")
         }

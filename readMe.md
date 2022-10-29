@@ -7,14 +7,14 @@
     <img src= "./TeamManager.png" alt="Logo" width="220" height="180">
   </a>
 
-  <h1 align="center">Fortune 500 Employee Tracker</h1>
+  <h1 align="center">Gucci's Social Network API</h1>
 
 
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Starting and keeping track of a company is incredibly difficult with so many moving parts! Different people, with different roles, working in diffferent departments. Well now you can store all of that information AND view it from the comfort of your command line. Once starting you are presented with a bunch of options to see information that is already in your database, you can even add a dapartment, role or add/update an employee to make sure your company is up-to-date!
+
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
